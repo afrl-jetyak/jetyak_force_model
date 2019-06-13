@@ -1,0 +1,29 @@
+<launch>
+
+	<!--Created by Nare Karapetyan-->
+	<!-- this will first rerecord a bagfile with costum made message and play from the scrip the bag file-->
+	<!-- then it will perfom synchronization and save result in log file-->
+
+	<arg name="input_bag_filename"	default="input.bag" />
+	<arg name="output_bag_filename" default="$(find data_utils)/../../../data/output.bag" />
+	<arg name="topic_name" 		default="/jetyak1/mavros/global_position/compass_hdg" />
+
+	<arg name="logfile_path" default="$(find data_utils)/../../../data/log.csv" />
+	<arg name="heading_topic"   default="data_utils/wrapper_compass_hdg" />
+	<arg name="hdg_msg"   default="hdg_wrapper_msg" />
+
+	<node pkg="data_utils" type="record_wrapped_message.py" name="record_wrapped_message" output="screen">
+
+		<param name="input_bag_filename"	value="$(arg input_bag_filename)" />
+		<param name="output_bag_filename"	value="$(arg output_bag_filename)" />
+		<param name="topic_name"		value="$(arg topic_name)" />
+	</node>
+
+
+	<node pkg="data_utils" type="time_synchronizer.py" name="time_synchronizer" output="screen">
+		<param name="logfile_path"	value="$(arg logfile_path)" />
+		<param name="heading_topic"	value="$(arg heading_topic)" />
+		<param name="hdg_msg"		value="$(arg hdg_msg)" />
+	</node>
+
+</launch>

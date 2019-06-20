@@ -3,6 +3,11 @@
 
 The package provides utilities to manipulte data collected with jetyak sensors
 
+## Structure
+
+* time_synchronizer
+* record_wrapped_message
+* mission_reader
 
 ### Usage
 
